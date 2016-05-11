@@ -11,9 +11,21 @@ var Activity = require('../models/activity');
 
 router.get('/', function(req, res, next) {
 	Promise.all([
-		Hotel.findAll(),
-		Restaurant.findAll(),
-		Activity.findAll()
+		Hotel.findAll({
+			include: [
+				{model: Place}
+			]
+		}),
+		Restaurant.findAll({
+			include: [
+				{model: Place}
+			]
+		}),
+		Activity.findAll({
+			include: [
+				{model: Place}
+			]
+		})
 	])
 	.spread(function(hotels, restaurants, activities) {
 		res.render('index', {

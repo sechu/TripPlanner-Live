@@ -85,34 +85,34 @@
   var restaurants = {{ templateRestaurants | json }};
   var activities = {{ templateActivities | json }};
 
-  $(document).ready(function() {
+  var byName = {
+    hotel: {},
+    restaurant: {},
+    activity: {}
+  }
 
-      var hotelByName = {};
-      var restaurantByName = {};
-      var activityByName = {};
+  var itinerary = {
+      hotel: [],
+      restaurant: [],
+      activity: []
+  }
+
+  $(document).ready(function() {
 
       hotels.forEach(function(hotel) {
         $('#hotel-choices').append('<option>'+hotel.name+'</option>');
-        hotelByName[hotel.name] = hotel;
+        byName['hotel'][hotel.name] = hotel;
       });
 
       restaurants.forEach(function(restaurant) {
         $('#restaurant-choices').append('<option>'+restaurant.name+'</option>');
-        restaurantByName[restaurant.name] = restaurant;
+        byName['restaurant'][restaurant.name] = restaurant;
       });
 
       activities.forEach(function(activity) {
         $('#activity-choices').append('<option>'+activity.name+'</option>');
-        activityByName[activity.name] = activity;
+        byName['activity'][activity.name] = activity;
       });
-
-      console.log(hotelByName);
-      
-      var itinerary = {
-        hotel: [],
-        restaurant: [],
-        activity: []
-      }
 
       $('[data-action="add"]').on('click', function() {
         var type = $(this).prev().data('type');
@@ -129,6 +129,7 @@
           $(list).append(newItem);
       }
       });
+
   })
 
 

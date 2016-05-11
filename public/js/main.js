@@ -46,18 +46,36 @@ $(function initializeMap (){
     activity: '/images/star-3.png'
   };
 
+  var markers = [];
+
   function drawMarker (type, coords) {
+
     var latLng = new google.maps.LatLng(coords[0], coords[1]);
     var iconURL = iconURLs[type];
     var marker = new google.maps.Marker({
       icon: iconURL,
       position: latLng
     });
+    markers.push(marker);
     marker.setMap(currentMap);
   }
+  
 
-  drawMarker('hotel', [40.705137, -74.007624]);
-  drawMarker('restaurant', [40.705137, -74.013940]);
-  drawMarker('activity', [40.716291, -73.995315]);
+  $('[data-action="add"]').on('click', function() {
 
+      var type = $(this).prev().data('type');
+      var item = $(this).prev().val();
+
+      markers.forEach(function(marker) {
+        marker.setMap(null);
+      })
+
+      for (var type in itinerary) {
+        itinerary[type].forEach(function(item) {
+          drawMarker(type, byName[type][item].place.location);
+        });
+      }
+
+  });
+  
 });
