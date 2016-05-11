@@ -16,24 +16,20 @@
           <div>
             <h4>Hotels</h4>
             <select data-type="hotel" id="hotel-choices">
-              <option>Andaz Wall Street</option>
-              <option>...</option>
             </select>
             <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
           </div>
           <div>
             <h4>Restaurants</h4>
             <select data-type="restaurant" id="restaurant-choices">
-              <option>Bouley</option>
-              <option>...</option>
+             
             </select>
             <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
           </div>
           <div>
             <h4>Activities</h4>
             <select data-type="activity" id="activity-choices">
-              <option>Mahayana Buddhist Temple Association</option>
-              <option>...</option>
+      
             </select>
             <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
           </div>
@@ -59,29 +55,35 @@
         <div class="panel-body" id="itinerary">
           <div>
             <h4>My Hotel</h4>
-            <ul class="list-group">
-              <div class="itinerary-item">
-                <span class="title">Andaz Wall Street</span>
-                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
-              </div>
+            <ul class="list-group hotel">
+              <li id="selectedHotel">
+                <div class="itinerary-item">
+                  <span class="title"></span>
+                  <button class="btn btn-xs btn-danger remove btn-circle">x</button>
+                </div>
+              </li>
             </ul>
           </div>
           <div>
             <h4>My Restaurants</h4>
-            <ul class="list-group">
-              <div class="itinerary-item">
-                <span class="title">Bouley</span>
-                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
-              </div>
+            <ul class="list-group restaurant">
+              <li id="selectedRest">
+                <div class="itinerary-item">
+                  <span class="title"></span>
+                  <button class="btn btn-xs btn-danger remove btn-circle">x</button>
+                </div>
+              </li>
             </ul>
           </div>
           <div>
             <h4>My Activities</h4>
-            <ul class="list-group">
-              <div class="itinerary-item">
-                <span class="title">Mahayana Buddhist Temple Association</span>
-                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
-              </div>
+            <ul class="list-group activity">
+              <li id="selectedAct">
+                <div class="itinerary-item">
+                  <span class="title"></span>
+                  <button class="btn btn-xs btn-danger remove btn-circle">x</button>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
@@ -89,4 +91,30 @@
     </div>
   </div>
 </div>
+
+<script src="/jquery/jquery.min.js"></script>
+
+<script>
+  {% autoescape false %}
+  var hotels = {{ templateHotels | json }};
+  var restaurants = {{ templateRestaurants | json }};
+  var activities = {{ templateActivities | json }};
+
+  $(document).ready(function() {
+      hotels.forEach(function(hotel) {
+        $('#hotel-choices').append('<option>'+hotel.name+'</option>');
+      });
+
+      restaurants.forEach(function(restaurant) {
+        $('#restaurant-choices').append('<option>'+restaurant.name+'</option>');
+      });
+
+      activities.forEach(function(activity) {
+        $('#activity-choices').append('<option>'+activity.name+'</option>');
+      });
+  })
+
+  {% endautoescape %}
+</script>
+
 {% endblock %}
