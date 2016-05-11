@@ -86,18 +86,28 @@
   var activities = {{ templateActivities | json }};
 
   $(document).ready(function() {
+
+      var hotelByName = {};
+      var restaurantByName = {};
+      var activityByName = {};
+
       hotels.forEach(function(hotel) {
         $('#hotel-choices').append('<option>'+hotel.name+'</option>');
+        hotelByName[hotel.name] = hotel;
       });
 
       restaurants.forEach(function(restaurant) {
         $('#restaurant-choices').append('<option>'+restaurant.name+'</option>');
+        restaurantByName[restaurant.name] = restaurant;
       });
 
       activities.forEach(function(activity) {
         $('#activity-choices').append('<option>'+activity.name+'</option>');
+        activityByName[activity.name] = activity;
       });
 
+      console.log(hotelByName);
+      
       var itinerary = {
         hotel: [],
         restaurant: [],
