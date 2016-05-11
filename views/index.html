@@ -56,34 +56,19 @@
           <div>
             <h4>My Hotel</h4>
             <ul class="list-group hotel">
-              <li id="selectedHotel">
-                <div class="itinerary-item">
-                  <span class="title"></span>
-                  <button class="btn btn-xs btn-danger remove btn-circle">x</button>
-                </div>
-              </li>
+              
             </ul>
           </div>
           <div>
             <h4>My Restaurants</h4>
             <ul class="list-group restaurant">
-              <li id="selectedRest">
-                <div class="itinerary-item">
-                  <span class="title"></span>
-                  <button class="btn btn-xs btn-danger remove btn-circle">x</button>
-                </div>
-              </li>
+              
             </ul>
           </div>
           <div>
             <h4>My Activities</h4>
             <ul class="list-group activity">
-              <li id="selectedAct">
-                <div class="itinerary-item">
-                  <span class="title"></span>
-                  <button class="btn btn-xs btn-danger remove btn-circle">x</button>
-                </div>
-              </li>
+              
             </ul>
           </div>
         </div>
@@ -112,7 +97,31 @@
       activities.forEach(function(activity) {
         $('#activity-choices').append('<option>'+activity.name+'</option>');
       });
+
+      var itinerary = {
+        hotel: [],
+        restaurant: [],
+        activity: []
+      }
+
+      $('[data-action="add"]').on('click', function() {
+        var type = $(this).prev().data('type');
+        var selected = $(this).prev().val();
+        var list = 'ul.'+type;
+        if (itinerary[type].indexOf(selected)=== -1) {
+            itinerary[type].push(selected);
+          if ((itinerary.hotel.length > 1) || (itinerary.restaurant.length > 3)) {
+            itinerary[type].shift();
+            $(list).children()[0].remove();
+          }
+        
+          var newItem = '<li><div class="itinerary-item"><span class="title">'+selected+'</span><button class="btn '+ 'btn-xs btn-danger remove btn-circle">x</button></div></li>';
+          $(list).append(newItem);
+      }
+      });
   })
+
+
 
   {% endautoescape %}
 </script>

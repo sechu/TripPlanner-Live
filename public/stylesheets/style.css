@@ -120,6 +120,9 @@ h3 {
       margin-top: 20px;
       margin-bottom: 20px; }
 
+li {
+  list-style: none; }
+
 .itinerary-item {
   margin: 8px 0; }
   .itinerary-item > * {
