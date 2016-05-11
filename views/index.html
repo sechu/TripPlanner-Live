@@ -129,7 +129,17 @@
         }
       });
 
-      $('.list-group')
+      $('.list-group').on('click', 'button', function() {
+          var li = $(this).parent().parent();
+          var type = li.parent().attr('class').split(' ')[1];
+          var name = $(this).prev().text();
+          console.log(li, type, name);
+
+          itinerary[type].splice(itinerary[type].indexOf(name), 1);
+
+          li.remove();
+
+      });
   })
 
 

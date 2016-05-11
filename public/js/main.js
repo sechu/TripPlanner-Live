@@ -68,7 +68,7 @@ $(function initializeMap (){
 
       markers.forEach(function(marker) {
         marker.setMap(null);
-      })
+      });
 
       for (var type in itinerary) {
         itinerary[type].forEach(function(item) {
@@ -76,6 +76,12 @@ $(function initializeMap (){
         });
       }
 
+  });
+// START HERE
+  $('.list-group').on('click', 'button', function() {
+    markers.forEach(function(marker) {
+        marker.setMap(null);
+    });
   });
   
 });
