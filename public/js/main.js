@@ -1,3 +1,5 @@
+
+
 $(function initializeMap (){
 
   var fullstackAcademy = new google.maps.LatLng(40.705086, -74.009151);
@@ -33,7 +35,7 @@ $(function initializeMap (){
 
   var mapCanvas = document.getElementById('map-canvas');
 
-  var currentMap = new google.maps.Map(mapCanvas, {
+  currentMap = new google.maps.Map(mapCanvas, {
     center: fullstackAcademy,
     zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -56,32 +58,10 @@ $(function initializeMap (){
       icon: iconURL,
       position: latLng
     });
-    markers.push(marker);
+   
     marker.setMap(currentMap);
   }
   
 
-  $('[data-action="add"]').on('click', function() {
-
-      var type = $(this).prev().data('type');
-      var item = $(this).prev().val();
-
-      markers.forEach(function(marker) {
-        marker.setMap(null);
-      });
-
-      for (var type in itinerary) {
-        itinerary[type].forEach(function(item) {
-          drawMarker(type, byName[type][item].place.location);
-        });
-      }
-
-  });
-// START HERE
-  $('.list-group').on('click', 'button', function() {
-    markers.forEach(function(marker) {
-        marker.setMap(null);
-    });
-  });
   
 });

@@ -77,10 +77,10 @@
   </div>
 </div>
 
-<script src="/jquery/jquery.min.js"></script>
-
 <script>
-  {% autoescape false %}
+      {% autoescape false %}
+      var currentMap;
+
   var hotels = {{ templateHotels | json }};
   var restaurants = {{ templateRestaurants | json }};
   var activities = {{ templateActivities | json }};
@@ -91,60 +91,19 @@
     activity: {}
   }
 
+
+
+  var days = [];
+  var currentDay = 1;
+
   var itinerary = {
       hotel: [],
       restaurant: [],
       activity: []
   }
-
-  $(document).ready(function() {
-
-      hotels.forEach(function(hotel) {
-        $('#hotel-choices').append('<option>'+hotel.name+'</option>');
-        byName['hotel'][hotel.name] = hotel;
-      });
-
-      restaurants.forEach(function(restaurant) {
-        $('#restaurant-choices').append('<option>'+restaurant.name+'</option>');
-        byName['restaurant'][restaurant.name] = restaurant;
-      });
-
-      activities.forEach(function(activity) {
-        $('#activity-choices').append('<option>'+activity.name+'</option>');
-        byName['activity'][activity.name] = activity;
-      });
-
-      $('[data-action="add"]').on('click', function() {
-        var type = $(this).prev().data('type');
-        var selected = $(this).prev().val();
-        var list = 'ul.'+type;
-        if (itinerary[type].indexOf(selected)=== -1) {
-            itinerary[type].push(selected);
-          if ((itinerary.hotel.length > 1) || (itinerary.restaurant.length > 3)) {
-            itinerary[type].shift();
-            $(list).children()[0].remove();
-          }
-          var newItem = '<li><div class="itinerary-item"><span class="title">'+selected+'</span><button class="btn '+ 'btn-xs btn-danger remove btn-circle">x</button></div></li>';
-          $(list).append(newItem);
-        }
-      });
-
-      $('.list-group').on('click', 'button', function() {
-          var li = $(this).parent().parent();
-          var type = li.parent().attr('class').split(' ')[1];
-          var name = $(this).prev().text();
-          console.log(li, type, name);
-
-          itinerary[type].splice(itinerary[type].indexOf(name), 1);
-
-          li.remove();
-
-      });
-  })
+    {% endautoescape %}
+    </script>
 
 
-
-  {% endautoescape %}
-</script>
 
 {% endblock %}
